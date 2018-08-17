@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Live search, book authors </title>
+</head>
+
+<body>
+    <h2> Search books by Author</h2>
+    <form action="">
+        <input type="text" size="50" onkeyup="showSearchResults(this.value)">
+        <div id="livesearch"> </div>
+    </form>
+
+
+    <script>
+        function showSearchResults(str) {
+            if (str.length == 0) {
+                document.getElementById('livesearch').innerHTML = "";
+                document.getElementById('livesearch').style.border = "0px";
+                return;
+            }
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.status == 200 && this.readyState == 4) {
+                    var response = xhr.responseText;
+                    document.getElementById('livesearch').innerHTML = response;
+                    document.getElementById("livesearch").style.border = "2px solid grey";
+                }
+            }
+            xhr.open('GET', 'livesearch.php?q=' + str, true);
+            xhr.send();
+        }
+    </script>
+</body>
+
+</html>
