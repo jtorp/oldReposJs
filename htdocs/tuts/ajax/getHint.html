@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax interactive example</title>
+</head>
+
+<body>
+<script>
+    function showHint(str) {
+        if (str.length == 0) {
+            var xhr = new XMLHttpRequest();
+            document.getElementById("txtHint").innerHTML = "";
+            return;
+        }
+        if (window.XMLHttpRequest) {
+            xhr = new XMLHttpRequest();
+
+        } else {
+            var xhr = new ActiveXObject();
+        }
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                document.getElementById("txtHint").innerHTML = xhr.responseText;
+
+            }
+
+        }
+        xhr.open('GET', 'gethint.php?q=' + str, true);
+        xhr.send();
+    }
+</script>
+
+    <h3> Start typing name in the field below:</h3>
+    <form action="gethint.php">
+        <label for=" "> My lunch options: </label>
+        <input type="text" id="txt1" onkeydown="showHint(this.value)" />
+        <p>
+            <b>
+                <span id="txtHint"></span>
+            </b>
+        </p>
+    </form>
+
+
+</body>
+</html>
