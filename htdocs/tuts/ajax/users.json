@@ -1,0 +1,20 @@
+[
+    {
+      "id": "5af9da5d4e0a47bd0d46bd62",
+      "name": "Keith Olsen",
+      "company": "APPLICA",
+      "email": "keitholsen@applica.com"
+    },
+    {
+      "id": "5af9da5da83cc61fe563fb81",
+      "name": "Adrian Hayes",
+      "company": "XSPORTS",
+      "email": "adrianhayes@xsports.com"
+    },
+    {
+      "id": "5af9da5d026e332b976eebfe",
+      "name": "Dorothy Mays",
+      "company": "CABLAM",
+      "email": "dorothymays@cablam.com"
+    }
+  ]

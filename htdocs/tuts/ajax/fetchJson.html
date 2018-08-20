@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Fetch JSON file data </title>
+</head>
+
+<body>
+    <div id="user" style=" font-size:10px; font-weight:100; color: white; width: 300px; height: 100px; padding:3px; background-color: #0b4d4b">
+        <h3> User: </h3>
+    </div>
+    <button id="button1" style="margin: 5px; border: 1px solid; background: #c6f7f7"> Get user </button>
+    <div id="users" style="font-size:10px; font-weight:100; color: white; padding:3px;   width:300px; height: 400px; background-color: #117874">
+        <h3> Users:</h3>
+    </div>
+    <br>
+    <br>
+    <button id="button2" style="border: 1px solid ; background: #c6f7f7"> Get users</button>
+    <script>
+        document.getElementById('button1').addEventListener('click', loadUser);
+        document.getElementById('button2').addEventListener('click', loadUsers);
+
+        function loadUser() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'user.json', true);
+            xhr.onerror = function () {
+                console.log("Request error...");
+            }
+            xhr.onload = function () {
+                if (this.status == 200) {
+                    var user = JSON.parse(this.responseText);
+                    var output = '';
+                    output +=
+                        '<h4> Single user details </h4>' +
+                        '<ul>' +
+                        '<li> _id: ' + user._id + '</li>' +
+                        '<li> name: ' + user.name + '</li>' +
+                        '<li> email: ' + user.email + '</li>' +
+                        '</ul>'
+                    document.getElementById('user').innerHTML = output;
+                }
+            }
+            xhr.send();
+        }
+        //2 get users.json
+        function loadUsers() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'users.json', true);
+            xhr.onerror = function () {
+                console.log("Request error...");
+            }
+            xhr.onload = function () {
+                if (this.status == 200) {
+                    var users = JSON.parse(this.responseText);
+                    var output = '';
+                    for (var i in users) {
+                        output +=
+                            '<h3> User: </h3>' +
+                            '<ul>' +
+                            '<li> ID: ' + users[i].id + '</li>' +
+                            '<li> name: ' + users[i].name + '</li>' +
+                            '<li> company: ' + users[i].company + '</li>' +
+                            '<li> email: ' + users[i].email + '</li>' +
+                            '</ul>'
+                    }
+                    document.getElementById('users').innerHTML = output;
+                }
+            }
+            xhr.send();
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
