@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Ajax 4 - ajax and php</title>
+</head>
+<style>
+    form {
+        display: inline-block;
+        font-size: 12px;
+    }
+</style>
+
+<body>
+    <button style="margin: 20px 0 0 50px; border: 1px solid black; background: linen; font-size: 16px" id="buttonGet">Get Name!</button>
+    <br>
+    <!-- comparing GET-->
+    <h2 style="color: tomato; padding:3px;"> Normal GET form, refreshes page </h2>
+    <form method="GET" , action="processing.php">
+        <input type="text" name="name" id="name">
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    <h2 style="color: deepSkyBlue; padding:3px;"> Ajax GET form, no refresh </h2>
+    <form id="getForm">
+        <input type="text" name="name" id="nameUser">
+        <input type="submit" value="Submit" name="" id="">
+    </form>
+
+    <!-- comparing POST-->
+    <h2 style="color: tomato; padding:3px;"> Normal POST form, refreshes page </h2>
+    <form method="POST" , action="processing.php">
+        <input type="text" name="name" id="name">
+        <input type="submit" value="Submit">
+    </form>
+
+    <h2 style="color: deepSkyBlue; padding:3px;"> Ajax POST form, no refresh </h2>
+    <form id="postForm">
+        <input type="text" name="name" id="name2">
+        <input type="submit" value="Submit">
+    </form>
+
+
+    <script>
+        document.getElementById('buttonGet').addEventListener('click', loadSomething);
+        document.getElementById('getForm').addEventListener('submit', loadSomething);
+        document.getElementById('postForm').addEventListener('submit', postSomething);
+
+        function loadSomething(event) {
+            event.preventDefault();
+            var nameU = document.getElementById('nameUser').value;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'processing.php?name=' + nameU, true);
+            xhr.onload = function () {
+                if (this.status == 200) {
+                    console.log(this.responseText);
+                }
+            }
+            xhr.send();
+        }
+
+        function postSomething(e) {
+            e.preventDefault();
+            var name = document.getElementById('name2').value;
+            var params = "name=" + name;
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'processing.php', true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.onload = function () {
+                console.log(this.responseText);
+            }
+            xhr.send(params);
+        }
+    </script>
+
+</body>
+
+</html>
